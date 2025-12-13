@@ -17,8 +17,11 @@ A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
     $cloud->addElement( $firstElement);
     $cloud->save("test.svg");
 
-Generate clouds of words, links, images as addressable elements either in SVG or HTML.
+Generate clouds of words, links, images as addressable elements either in SVG or HTM, for interactive and dynamic use.
+This potentially allows such a cloud to be used as part of a UI, and do fancy things like animation.  Two packages are provided,
+B<Cloud> and B<CloudElement> in the same module.  It has no other external dependencies.
 
 =head2 Similar projects
 
 L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
+L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created l<HTML::TagCloud> to generate
