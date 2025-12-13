@@ -21,6 +21,13 @@ Generate clouds of words, links, images as addressable elements either in SVG or
 This potentially allows such a cloud to be used as part of a UI, and do fancy things like animation.  Two packages are provided,
 B<Cloud> and B<CloudElement> in the same module.  It has no other external dependencies.
 
+=begin html
+
+<p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/test.svg"></center></p>
+
+=end html
+
+
 =head2 Similar projects
 
 L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
