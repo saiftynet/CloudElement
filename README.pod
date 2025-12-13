@@ -21,4 +21,4 @@ Generate clouds of words, links, images as addressable elements either in SVG or
 
 =head2 Similar projects
 
-[c0bra(Brian Hann)](https://github.com/c0bra) created a [Perl Module](https://metacpan.org/pod/Image::WordCloud) to generate Word Cloud Images. 
+L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
