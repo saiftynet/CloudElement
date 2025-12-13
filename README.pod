@@ -1,0 +1,24 @@
+=head1 NAME
+
+Cloud::Cloud.pm
+
+A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
+
+=head1 SYNOPSIS
+
+    use strict;use warnings;
+    use lib "./lib/";
+    use Cloud::Cloud;
+    my $cloud    = new Cloud();
+    my $firstElement= new CloudElement(textbox=>[100,110,"Oversight",20],
+	                    lineColour=>(qw/red orange yellow green blue indigo violet/)[rand()*7],
+                      textColour=>"red",
+                      radius=>int(rand()*10));
+    $cloud->addElement( $firstElement);
+    $cloud->save("test.svg");
+
+Generate clouds of words, links, images as addressable elements either in SVG or HTML.
+
+=head2 Similar projects
+
+[c0bra(Brian Hann)](https://github.com/c0bra) created a [Perl Module](https://metacpan.org/pod/Image::WordCloud) to generate Word Cloud Images. 
