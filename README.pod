@@ -25,4 +25,4 @@ B<Cloud> and B<CloudElement> in the same module.  It has no other external depen
 
 L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
 
-L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate
+L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate HTML Tags.
