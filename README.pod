@@ -85,7 +85,9 @@ C<< $cloud->center() >> returns the center coordinates of the cloud center;
 =head3 Methods
 
 
+=head2 AUTHOR
 
+L<Saiftynet|https://github.com/saiftynet>
 
 =head2 See Also
 
@@ -94,6 +96,8 @@ L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to g
 L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate HTML Tags.
 
 =head2 Contributing
+
+L<Submit issues|https://github.com/saiftynet/CloudElement/issues>
 
 =head2 License
 
