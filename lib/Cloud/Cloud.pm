@@ -8,9 +8,11 @@ our $VERSION = "0.001";
 	   my $self={};
 	   if (ref $_[0]){
 		   if (ref $_[0] eq "CloudElement"){  # element object passed to clone
-			   for (qw/x y width height lineColour bgColour radius text size textColour/){
-				   $params{$_}=$_[0]->{$_};
-			   }			   
+			   for my $key (qw/x y width height lineColour bgColour radius text size textColour type/){
+				   $self->{$key}=$_[0]->{$key};
+			   }
+			   bless $self,$class;
+			   return $self;		   
 		   }
 		   else { %params=%$_[0] };         # object passed as hashref
 	   }
@@ -37,13 +39,6 @@ our $VERSION = "0.001";
 		   $self->{type}="image";
 		   
 		   
-	   }
-	   else{ #default treat 
-		   $self->{type}=$params{type};
-		   $self->{x}=$params{x};
-		   $self->{y}=$params{y};
-		   $self->{width}=$params{width};
-		   $self->{height}=$params{height};
 	   }
 	   
 	   my %default=("lineThickness"=>1,"lineColour"=>"black","bgColour"=>"white","radius"=>2,"textColour"=>"black");
@@ -193,11 +188,11 @@ package Cloud;
 	   my $overlaps=[];
 	   my $test=(ref $elementIndex eq "CloudElement")?$elementIndex:$self->{elements}->[$elementIndex];
 	   foreach my $ch(0..$#{$self->{elements}}){
-		  next if (($ch==$elementIndex)||((ref $elementIndex eq "CloudElement")&& $elementIndex->match($self->{elements}->[$ch])));
+		  next if (($ch==$elementIndex)||((ref $elementIndex eq "CloudElement") && $elementIndex->match($self->{elements}->[$ch])));
 		  my $ol=$test->proximity($self->{elements}->[$ch]);
 		  if (!%$ol){
 			 push @$overlaps, $ch;
-			 $self->{elements}->[$ch]->{fillColour}=$highlight if ($highlight);
+			 $self->{elements}->[$ch]->{bgColour}=$highlight if ($highlight);
 		  }
 	   }
 
@@ -242,26 +237,50 @@ package Cloud;
 	  unless (ref $element){
 		$element=$self->{elements}->[$element]
 	  }
-	  my $count=0;my ($xDir,$yDir);
+	  if (! scalar(@{$self->{elements}})){
+		  $element->{x}=$target->[0]-$element->{width}/2;
+		  $element->{y}=$target->[0]-$element->{height}/2;
+		  return;
+		  
+	  }
+	  my $count=0;my ($xDir,$yDir);my $buffer=[];
 	  while (1){
 		my @testStationary=($element->{x},$element->{y});
+		unshift @$buffer,[$element->{x},$element->{y}];
 		my ($centerX,$centerY)=@{$element->center()};
 		($xDir,$yDir) = (($target->[0]<=>$centerX)*10,($target->[1]<=>$centerY)*10);
 		$self->tryMove($element,[$xDir,0]);
 		$self->tryMove($element,[0,$yDir]);
 		if (($testStationary[0]==$element->{x})&&($testStationary[1]==$element->{y})){
-		  print "Cannot move ".@{$self->{elements}}."\n ";
+		  print " Cannot move ".@{$self->{elements}}."\n";
+		  print " Stationary\n" if stationary($buffer);
 		  last;
 		}
 		$count++;
 		if ($count>100){
-		  print "loop Failed ".@{$self->{elements}}."\n";
+		  print " loop Failed ".@{$self->{elements}}."\n";
+		  print " oscillating\n" if oscillating($buffer);
 		  last;
 		}
+		if (scalar @$buffer==3){pop @$buffer;}
 	  }
-	  
 	}
 	
+	sub stationary{
+	   my $buffer=shift;
+	   return 0 if scalar @$buffer<2;
+	   return 1 if (($buffer->[0]->[0] == $buffer->[1]->[0]) &&($buffer->[0]->[1] == $buffer->[1]->[1]));
+	   return 0;
+		
+	}
+
+
+   sub oscillating{
+	   my $buffer=shift;
+	   return 0 if scalar @$buffer<3;
+	   return 1 if (($buffer->[0]->[0] == $buffer->[2]->[0]) &&($buffer->[0]->[1] == $buffer->[2]->[1]));
+   }
+   
    sub save{
      my ($self,$fileName)=@_;
      open my $fh,">", $fileName;
