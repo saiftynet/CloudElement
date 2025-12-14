@@ -58,7 +58,8 @@ This objects contains the CloudElements
 
 C<< $cloud->addElement(@elements) >>  adds one or more elements to the cloud
 
-C<< $cloud->overlaps($element) >> checks if an element overlaps any other elements in the cloud
+C<< $cloud->checkOverlap($element) >> checks if an element overlaps any other elements in
+the cloud, returns 0 if no overlaps or an arrayRef of indexes of elements that overlap.
 
 C<< $cloud->moveTowards($element,$target) >>  moves an element as close to the $target coordinates
 until it can not do so without overlapping
