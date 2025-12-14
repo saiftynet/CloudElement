@@ -11,9 +11,8 @@ A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
     use Cloud::Cloud;
     my $cloud    = new Cloud();
     my $firstElement= new CloudElement(textbox=>[100,110,"Oversight",20],
-                      lineColour=>(qw/red orange yellow green blue indigo violet/)[rand()*7],
-                      textColour=>"red",
-                      radius=>int(rand()*10));
+                      lineColour=>"blue",
+                      textColour=>"red");
     $cloud->addElement( $firstElement);
     $cloud->save("test.svg");
 
@@ -24,6 +23,12 @@ B<Cloud> and B<CloudElement> in the same module.  It has no other external depen
 =begin html
 
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/test.svg"></center></p>
+
+=end html
+
+=begin html
+
+<p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textboxcloud.svg"></center></p>
 
 =end html
 
