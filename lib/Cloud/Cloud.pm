@@ -31,7 +31,7 @@ our $VERSION = "0.001";
 		   $self->{type}=$params{text}?"text":"textbox";
 		  ($self->{x},$self->{y},$self->{text},$self->{size})=@{$params{$self->{type}}};
 		   $self->{height}=$self->{size}*1.5;
-		   $self->{width}=$self->{size}*length($self->{text})*0.8;
+		   $self->{width}=$self->{size}*length($self->{text})*0.7;
 		   
 		   
 	   }
@@ -63,14 +63,41 @@ our $VERSION = "0.001";
 		       "font-family='sans-serif' fill:'$self->{textColour}' dominant-baseline='middle' text-anchor='middle'>$self->{text}</text>";
         }
         elsif($self->{type} eq "textbox"){
-			return "\n <rect width='$self->{width}' height='$self->{height}' ".
+			return "\n <g>\n   <rect width='$self->{width}' height='$self->{height}' ".
 		       "x='$self->{x}' y='$self->{y}' rx='$self->{radius}' ry='$self->{radius}' ".
-		       "\n  style='fill:".$self->{"bgColour"}.";".
+		       "\n    style='fill:".$self->{"bgColour"}.";".
 		       "stroke-width:".$self->{lineThickness}.";".
 		       "stroke:".$self->{lineColour}."' />".
-		       "\n <text y='".($self->{y}+2+$self->{height}/2)."' x='".($self->{x}+$self->{width}/2)."' font-size='$self->{size}px'\n".
-		       "  font-family='sans-serif' fill='$self->{textColour}' dominant-baseline='middle' text-anchor='middle'>$self->{text}</text>";
+		       "\n    <text y='".($self->{y}+2+$self->{height}/2)."' x='".($self->{x}+$self->{width}/2)."' font-size='$self->{size}px'\n".
+		       "    font-family='sans-serif' fill='$self->{textColour}' dominant-baseline='middle' text-anchor='middle'>$self->{text}</text>\n".
+		       " </g>";
         }
+	}
+	
+	sub div{
+		my $self=shift;
+		my $outline="";
+		
+		if (($self->{type} eq "rectangle")||($self->{type} eq "textbox")){
+			$outline="border: $self->{lineThickness}px solid $self->{lineColour};
+			        border-radius:$self->{radius}px;"
+		}
+		my $div= "\n <div style='position: absolute;
+			        top: $self->{y}px; left: $self->{x}px;
+			        width:$self->{width}px; height: $self->{height}px;
+			        $outline' >";
+			        
+		if ($self->{type} =~/text/){
+			$div.="\n   <div style=' margin: 0; position: absolute;
+			            top: 50%; left: 50%; transform: translate(-50%, -50%);
+			            font-family:sans-serif; font-size:$self->{size}px;
+			            color:$self->{textColour}'>$self->{text}</div>\n";
+	    }
+	    $div.="   </div>";
+		
+		
+		return $div;
+		
 	}
 	
    sub center{
@@ -152,12 +179,7 @@ our $VERSION = "0.001";
 	   my($self)=@_;	
 	   return new CloudElement($self);
 	}
-	
-	sub addContent{
-	   my($self,$content)=@_;	
-	   $self->{content}=$content;
-	}
-	
+		
 
 package Cloud;
 
@@ -213,6 +235,21 @@ package Cloud;
         $svg.="\n\n</svg>";
         return $svg;
    }
+
+   sub div{
+	   my $self=shift;
+	   my $div="\n<div width='". $self->{size}->[0].
+	   	"px' height='".   $self->{size}->[1]."px' style='position:relative'>\n";
+	   $div.=$_->div() foreach (@{$self->{elements}});	
+	   $div.="\n\n</div>";
+	   return $div;
+   }
+
+  
+   sub html{
+	   my $self=shift;
+	   my $html="<html><body>\n".$self->div()."\n</body></html>";
+   }
    
    sub tryMove{
      my ($self,$elementToMove,$delta)=@_;
@@ -252,14 +289,14 @@ package Cloud;
 		$self->tryMove($element,[$xDir,0]);
 		$self->tryMove($element,[0,$yDir]);
 		if (($testStationary[0]==$element->{x})&&($testStationary[1]==$element->{y})){
-		  print " Cannot move ".@{$self->{elements}}."\n";
+		  print " No more moves ".@{$self->{elements}}."\n";
 		  print " Stationary\n" if stationary($buffer);
 		  last;
 		}
 		$count++;
 		if ($count>100){
-		  print " loop Failed ".@{$self->{elements}}."\n";
-		  print " oscillating\n" if oscillating($buffer);
+		  print " Loop Failed ".@{$self->{elements}}."\n";
+		  print " Oscillating\n" if oscillating($buffer);
 		  last;
 		}
 		if (scalar @$buffer==3){pop @$buffer;}
@@ -274,7 +311,6 @@ package Cloud;
 		
 	}
 
-
    sub oscillating{
 	   my $buffer=shift;
 	   return 0 if scalar @$buffer<3;
@@ -282,9 +318,14 @@ package Cloud;
    }
    
    sub save{
-     my ($self,$fileName)=@_;
+     my ($self,$fileName,$format)=@_;
      open my $fh,">", $fileName;
-     print $fh $self->svg();
+     if (($format && ($format =~/\htm/i))||($fileName=~/\.html?$/i)){
+		print $fh $self->html(); 
+	 }
+	 else{
+		print $fh $self->svg();
+	 }
      close $fh;
    }
 
