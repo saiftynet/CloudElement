@@ -26,7 +26,7 @@ in the same module.  It has no other external dependencies.
 Similar modules exist and it is relatively easy to generate "Word
 Cloud"s online. This module aims to give this feature to Perl applications.
 Efforts on MetaCPAN are listed below. The images genrated are vector (SVG),
-or HTML (TODO) Elements and therefore may also be dynamic,  adaptable for
+or HTML Elements and therefore may also be dynamic,  adaptable for
 animations and user interactions.
 
 =begin html
@@ -38,6 +38,13 @@ Rectangles Cloud<br>
 =begin html
 Text Box Cloud<br>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textboxcloud.svg" width="400"></center></p>
+
+=end html
+
+
+=begin html
+Text Box Cloud in a Browser (HTML)<br>
+<p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textcloudhtm.png" width="400"></center></p>
 
 =end html
 
@@ -66,7 +73,8 @@ until it can not do so without overlapping
 
 C<< $cloud->center() >> returns the center coordinates of the cloud;
 
-C<< $cloud->save("test.svg") >>; 
+C<< $cloud->save("test.svg") ;>>C<< $cloud->save([filename],[format]) ;>> saves the cloud.  The format
+can be passed separately or derived from the extension  (`.svg` or `.htm(l)?`).
 
 C<< $cloud->center() >> returns the center coordinates of the cloud center;
 
