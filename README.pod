@@ -92,6 +92,14 @@ C<< $element->proximity($anotherElement); >>  how close to another element, in w
 
 C<< $element->clone(); >> returns a clone of the CloudElement
 
+=head2 CHANGES
+
+=over
+
+=item Version 0.001  Initial commit to github
+
+=back
+
 =head2 AUTHOR
 
 L<Saiftynet|https://github.com/saiftynet>
@@ -106,5 +114,12 @@ L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> 
 
 L<Submit issues|https://github.com/saiftynet/CloudElement/issues>
 
-=head2 License
+=head2 License and Copyright
+
+Copyright (c) 2025 Saif Ahmed.
+
+This library is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
+
+This program is distributed in the hope that it will be useful, but without any warranty; without even the implied warranty of merchantability or fitness for a particular purpose.
+
 
