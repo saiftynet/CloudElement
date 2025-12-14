@@ -1,13 +1,13 @@
 =head1 NAME
 
-Cloud::Cloud.pm
+Cloud::Cloud
 
 A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
 
 =head1 SYNOPSIS
 
     use strict;use warnings;
-    use lib "./lib/";
+    use lib "../lib/";             #  folder for Cloud/Cloud.pm
     use Cloud::Cloud;
     my $cloud    = new Cloud();
     my $firstElement= new CloudElement(textbox=>[100,110,"Oversight",20],
@@ -84,6 +84,13 @@ C<< $cloud->center() >> returns the center coordinates of the cloud center;
 
 =head3 Methods
 
+C<< $element->move($delta); >>  relative move
+
+C<< $element->moveTo($pos); >>  absolute move
+
+C<< $element->proximity($anotherElement); >>  how close to another element, in which direction as a hash, or undef if overlapping
+
+C<< $element->clone(); >> returns a clone of the CloudElement
 
 =head2 AUTHOR
 
