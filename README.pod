@@ -73,7 +73,7 @@ until it can not do so without overlapping
 
 C<< $cloud->center() >> returns the center coordinates of the cloud;
 
-C<< $cloud->save("test.svg") ;>>C<< $cloud->save([filename],[format]) ;>> saves the cloud.  The format
+C<< $cloud->save("test.svg") ; >> C<< $cloud->save([filename],[format]) ; >> saves the cloud.  The format
 can be passed separately or derived from the extension  (`.svg` or `.htm(l)?`).
 
 C<< $cloud->center() >> returns the center coordinates of the cloud center;
