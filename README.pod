@@ -16,10 +16,6 @@ A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
     $cloud->addElement( $firstElement);
     $cloud->save("test.svg");
 
-
-
-
-
 =head1 DESCRIPTION
 
 Generate clouds of words, links, images as addressable elements either
@@ -30,7 +26,7 @@ in the same module.  It has no other external dependencies.
 Similar modules exist and it is relatively easy to generate "Word
 Cloud"s online. This module aims to give this feature to Perl applications.
 Efforts on MetaCPAN are listed below. The images genrated are vector (SVG),
-or HTML Elements and therefore may also be dynamic,  adaptable for
+or HTML (TODO) Elements and therefore may also be dynamic,  adaptable for
 animations and user interactions.
 
 =begin html
@@ -64,7 +60,7 @@ C<< $cloud->addElement(@elements) >>  adds one or more elements to the cloud
 
 C<< $cloud->overlaps($element) >> checks if an element overlaps any other elements in the cloud
 
-C<< $cloud->omoveTowards($element,$target) >>  moves an element as close to the $target coordinates
+C<< $cloud->moveTowards($element,$target) >>  moves an element as close to the $target coordinates
 until it can not do so without overlapping
 
 C<< $cloud->center() >> returns the center coordinates of the cloud;
@@ -87,8 +83,16 @@ C<< $cloud->center() >> returns the center coordinates of the cloud center;
 
 =head3 Methods
 
-=head2 Similar projects
+
+
+
+=head2 See Also
 
 L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
 
 L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate HTML Tags.
+
+=head2 Contributing
+
+=head2 License
+
