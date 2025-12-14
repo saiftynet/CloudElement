@@ -31,15 +31,11 @@ animations and user interactions.
 
 =begin html
 
-Rectangles Cloud<br>
+<h3>Rectangles Cloud</h3>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/test.svg" width="400"></center></p>
-<br><br>
-
-Text Box Cloud<br>
+<h3>Text Box Cloud</h3>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textboxcloud.svg" width="400"></center></p>
-
-<br><br>
-Text Box Cloud in a Browser (HTML)<br>
+<h3>Text Box Cloud in a Browser (HTML)</h3>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textcloudhtm.png" width="400"></center></p>
 
 =end html
