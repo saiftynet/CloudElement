@@ -16,22 +16,76 @@ A Perl Module to create a Word Cloud, or Image Cloud as SVG or HTML elements
     $cloud->addElement( $firstElement);
     $cloud->save("test.svg");
 
-Generate clouds of words, links, images as addressable elements either in SVG or HTM, for interactive and dynamic use.
-This potentially allows such a cloud to be used as part of a UI, and do fancy things like animation.  Two packages are provided,
-B<Cloud> and B<CloudElement> in the same module.  It has no other external dependencies.
+
+
+
+
+=head1 DESCRIPTION
+
+Generate clouds of words, links, images as addressable elements either
+in SVG or HTM, for interactive and dynamic use. This potentially allows
+such a cloud to be used as part of a UI, and do fancy things like
+animation.  Two packages are provided, B<Cloud> and B<CloudElement>
+in the same module.  It has no other external dependencies.
+Similar modules exist and it is relatively easy to generate "Word
+Cloud"s online. This module aims to give this feature to Perl applications.
+Efforts on MetaCPAN are listed below. The images genrated are vector (SVG),
+or HTML Elements and therefore may also be dynamic,  adaptable for
+animations and user interactions.
 
 =begin html
-
+Rectangles Cloud<br>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/test.svg" width="400"></center></p>
 
 =end html
 
 =begin html
-
+Text Box Cloud<br>
 <p><center><img src="https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textboxcloud.svg" width="400"></center></p>
 
 =end html
 
+=head1 Module
+
+Two Packages are provided. Cloud and CloudElement.  The Cloud object may contain various kinds of CloudElements (e.g. "rectangles","text","textbox", "image"). 
+
+    use Cloud::Cloud;
+    
+=head2 Cloud
+
+This objects contains the CloudElements
+
+    my $cloud=new Cloud;             # using default size
+    my $cloud=new Cloud([3000,3000]);# specifying width and height
+
+=head3 Methods
+
+C<< $cloud->addElement(@elements) >>  adds one or more elements to the cloud
+
+C<< $cloud->overlaps($element) >> checks if an element overlaps any other elements in the cloud
+
+C<< $cloud->omoveTowards($element,$target) >>  moves an element as close to the $target coordinates
+until it can not do so without overlapping
+
+C<< $cloud->center() >> returns the center coordinates of the cloud;
+
+C<< $cloud->save("test.svg") >>; 
+
+C<< $cloud->center() >> returns the center coordinates of the cloud center;
+
+
+=head2 CloudElement
+
+   my $firstElement= new CloudElement(textbox=>[100,110,"Perl Cloud",20],
+                     lineColour=>(qw/red orange yellow green blue indigo violet/)[rand()*7],
+                     textColour=>"red");
+   my $secondElement= new CloudElement(text=>[100,110,"Interaction",20],
+                     textColour=>"red");
+   my $thirdElement= new CloudElement(rectangle=>[100,110,50,20],
+                     bgColour=>"red",
+                     lineColour=>"black");
+
+=head3 Methods
 
 =head2 Similar projects
 
