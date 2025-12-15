@@ -27,7 +27,10 @@ Similar modules exist and it is relatively easy to generate "Word
 Cloud"s online. This module aims to give this feature to Perl applications.
 Efforts on MetaCPAN are listed below. The images genrated are vector (SVG),
 or HTML Elements and therefore may also be dynamic,  adaptable for
-animations and user interactions. There are various algorithms that may be used to place the elements. The examples below merely place these elements in random free space and then move them towards the centre until they nearly touch another element. 
+animations and user interactions. There are various algorithms that may be
+used to place the elements. The examples below merely place these elements
+in random free space and then move them towards the centre until they nearly
+touch another element. 
 
 =begin html
 
@@ -81,6 +84,13 @@ C<< $cloud->center() >> returns the center coordinates of the cloud center;
    my $thirdElement= new CloudElement(rectangle=>[100,110,50,20],
                      bgColour=>"red",
                      lineColour=>"black");
+
+The element creation requires a set of parameters as key value pairs, or another element to clone.
+
+* One Key defines basic parameters specific to the entity to display (e.g. C<rectangle>,  C<text>,  C<textbox>)
+* Set of optional parameters follw as Key-Value pairs
+All
+
 
 =head3 Methods
 
