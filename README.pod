@@ -27,7 +27,7 @@ Similar modules exist and it is relatively easy to generate "Word
 Cloud"s online. This module aims to give this feature to Perl applications.
 Efforts on MetaCPAN are listed below. The images genrated are vector (SVG),
 or HTML Elements and therefore may also be dynamic,  adaptable for
-animations and user interactions.
+animations and user interactions. There are various algorithms that may be used to place the elements. The examples below merely place these elements in random free space and then move them towards the centre until they nearly touch another element. 
 
 =begin html
 
@@ -106,9 +106,9 @@ L<Saiftynet|https://github.com/saiftynet>
 
 =head2 See Also
 
-L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate Word Cloud Images. 
+L<c0bra(Brian Hann)]|https://github.com/c0bra> created  L<Image::WordCloud> to generate raster Word Cloud Images. Depends on SDL to determine the dimensions of a word.
 
-L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate HTML Tags.
+L<Sarah Roberts|https://metacpan.org/author/ROBERTSD> created L<HTML::TagCloud> to generate HTML Tags. A useful utility creating boxes that link to pages with thumbnail images or a text summary. 
 
 =head2 Contributing
 
