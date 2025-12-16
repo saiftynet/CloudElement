@@ -43,8 +43,8 @@ Cumulonimbus do you think?"
 
 "You know how you hate AI, think it will take our jobs and end the world?"
 
-"I have seen Terminator, Waq", I said "Of course I know what's coming.".
-I didn't add that he had a distant resemblance to a cyborg  with
+"I have seen Terminator, Waq", I said "Of course I know what's coming.",
+with visions of Waq revealing himself as a cyborg  with
 living biomimetic skin grown over a metallic endoskeleton.
 
 "A Two-Way Interface for a Dynamic Digital Learning Experience and 
@@ -53,8 +53,9 @@ experts to encoding their knowledge, experience and available evidence in
 a form that be used to train other individuals, rather than rely on
 some dependency inducing neural network on a server somewhere."
 
-This was going way over my head, "Ah...and how is this different from,
-I don't know, something archaic, say a textbook."
+TWIDDLE-DEE? Twiddle dumb, I thought.  This was going way over my head,
+"Ah...and how is this better than, I don't know, something archaic, say
+a textbook?"
 
 Waq's face clouded over, "Well it will have a Cloud, be Digital, Dynamic,
 and Deterministic."
@@ -75,3 +76,24 @@ an idea struck me. There is another kind of cloud that could be useful.
 "Waq, you are a genius!", I said.
 
 ## Interactive Word Cloud
+
+Examples of Word Cloud Generators abound on-line. While useful for one off
+projects, for flexible and easily configurable it is handy to have a module
+for your own language of choice.  MetaCPAN has a couple of options. 
+[c0bra(Brian Hann)](https://github.com/c0bra) created
+[Image::WordCloud](https://metacpan.org/pod/Image::WordCloud) to generate
+raster Word Cloud Images. It is rather clever, depends on SDL to determine
+the dimensions of a word to create a attractive word cloud. 
+[Sarah Roberts](https://metacpan.org/author/ROBERTSD) created
+[HTML::TagCloud](https://metacpan.org/pod/HTML::TagCloud) to generate HTML
+Tags. 
+
+<img width="1920" height="1080" alt="image" src="https://github.com/saiftynet/dummyrepo/raw/main/CloudElement/textcloudhtm.png" />
+
+I am developing yet another option, this time using addressable elements
+to generate Word Clouds in svg and html.  This potentially allows dynamic
+manipulation and interaction with the cloud.  One possible goal is to
+develop a deterministic tree connecting multiple such word clouds as part
+of an expert system.
+
+My early effort is [CloudElement](https://github.com/saiftynet/CloudElement/)
