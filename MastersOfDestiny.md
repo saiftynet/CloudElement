@@ -88,7 +88,7 @@ the dimensions of a word to create a attractive word cloud.
 [HTML::TagCloud](https://metacpan.org/pod/HTML::TagCloud) to generate HTML
 Tags. 
 
-<img width="1920" height="1080" alt="image" src="https://github.com/saiftynet/dummyrepo/raw/main/CloudElement/textcloudhtm.png" />
+![image](https://github.com/saiftynet/dummyrepo/blob/main/CloudElement/textcloudhtm.png)
 
 I am developing yet another option, this time using addressable elements
 to generate Word Clouds in svg and html.  This potentially allows dynamic
