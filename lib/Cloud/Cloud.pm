@@ -1,6 +1,6 @@
 package CloudElement;
 
-our $VERSION = "0.001";
+our $VERSION = "0.002";
 
 	sub new{
 	   my $class=shift;
@@ -37,7 +37,13 @@ our $VERSION = "0.001";
 	   }
 	   elsif ($params{image}){ # TODO Image objects
 		   $self->{type}="image";
-		   
+		  ($self->{x},$self->{y},$self->{path},$self->{size})=@{$params{$self->{type}}};
+		  if (ref $self->{size}) {
+			  ($self->{width},$self->{height})=@{$self->{size}}
+		  }
+		  elsif ($self->{size}=~/^(\d+)x(\d+)$/){
+			   ($self->{width},$self->{height})=($1,$2);
+		  }
 		   
 	   }
 	   
@@ -45,6 +51,11 @@ our $VERSION = "0.001";
 	   foreach (qw/lineThickness lineColour bgColour radius textColour/){
 		   $self->{$_}=$params{$_}//$default{$_};
 	   }
+	   
+	   foreach  (qw /class id onmouseover onmouseout onclick/){
+		   $self->{$_}=$params{$_} if (exists $params{$_});
+	   }
+	   
 	   bless $self,$class;
 	   return $self;
 	}
@@ -77,23 +88,33 @@ our $VERSION = "0.001";
 	sub div{
 		my $self=shift;
 		my $outline="";
+		my $extras="";
+		
+		 
+	   foreach  (qw /class id onmouseover onmouseout onclick/){
+		   $extras.=" $_='".$self->{$_}."' " if (exists $self->{$_});
+	   };
 		
 		if (($self->{type} eq "rectangle")||($self->{type} eq "textbox")){
 			$outline="border: $self->{lineThickness}px solid $self->{lineColour};
-			        border-radius:$self->{radius}px;"
+			        border-radius:$self->{radius}px;
+			        background-color:d $self->{bgColour}' $extras";
+			        
 		}
+		# container div
+		
 		my $div= "\n <div style='position: absolute;
 			        top: $self->{y}px; left: $self->{x}px;
 			        width:$self->{width}px; height: $self->{height}px;
-			        $outline' >";
+			        $outline >";
 			        
 		if ($self->{type} =~/text/){
 			$div.="\n   <div style=' margin: 0; position: absolute;
 			            top: 50%; left: 50%; transform: translate(-50%, -50%);
 			            font-family:sans-serif; font-size:$self->{size}px;
-			            color:$self->{textColour}'>$self->{text}</div>\n";
+			            color:$self->{textColour}' >$self->{text}\n   </div>\n";
 	    }
-	    $div.="   </div>";
+	    $div.=" </div>";
 		
 		
 		return $div;
@@ -328,5 +349,24 @@ package Cloud;
 	 }
      close $fh;
    }
+   
+   sub placeAtCenter{
+	   my ($self,$element)=@_;
+	   $element->{x} = ( $self->{size}->[0]-$element->{width} ) /2;
+	   $element->{y} = ( $self->{size}->[1]-$element->{height}) /2;
+   }
+   
+   sub placeRandomly{
+	   my ($self,$element)=@_;
+	   my $count=0;
+	   while ($self->checkOverlap($element)){
+		   $element->{x}=rand()*($self->{size}->[0]-$element->{width});
+		   $element->{y}=rand()*($self->{size}->[1]-$element->{height});
+		   $count++;
+		   last if ($count>20);
+	   }
+	   return ($count>20)?undef:$element;
+	   
+   }
 
-
+1;
