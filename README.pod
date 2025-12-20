@@ -109,14 +109,6 @@ C<< $element->proximity($anotherElement); >>  how close to another element, in w
 
 C<< $element->clone(); >> returns a clone of the CloudElement
 
-=head2 CHANGES
-
-=over
-
-=item Version 0.001  Initial commit to github
-
-=back
-
 =head2 AUTHOR
 
 L<Saiftynet|https://github.com/saiftynet>
