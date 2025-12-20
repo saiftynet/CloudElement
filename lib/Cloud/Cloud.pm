@@ -1,8 +1,8 @@
 package CloudElement;
 
-our $VERSION = "0.002";
-
-	sub new{
+our $VERSION = "0.003";
+    
+	sub new{  # creates a new element
 	   my $class=shift;
 	   my %params;
 	   my $self={};
@@ -14,7 +14,7 @@ our $VERSION = "0.002";
 			   bless $self,$class;
 			   return $self;		   
 		   }
-		   else { %params=%$_[0] };         # object passed as hashref
+		   else { %params=%{$_[0]}; };      # object passed as hashref
 	   }
 	   else {                               # a hash passed as list of key values
 		 %params=@_;
@@ -45,6 +45,9 @@ our $VERSION = "0.002";
 			   ($self->{width},$self->{height})=($1,$2);
 		  }
 		   
+	   }
+	   else{
+		   die "unidentified type";
 	   }
 	   
 	   my %default=("lineThickness"=>1,"lineColour"=>"black","bgColour"=>"white","radius"=>2,"textColour"=>"black");
@@ -92,13 +95,13 @@ our $VERSION = "0.002";
 		
 		 
 	   foreach  (qw /class id onmouseover onmouseout onclick/){
-		   $extras.=" $_='".$self->{$_}."' " if (exists $self->{$_});
+		   $extras.="\n      $_='".$self->{$_}."'" if (exists $self->{$_});
 	   };
 		
 		if (($self->{type} eq "rectangle")||($self->{type} eq "textbox")){
 			$outline="border: $self->{lineThickness}px solid $self->{lineColour};
 			        border-radius:$self->{radius}px;
-			        background-color:d $self->{bgColour}' $extras";
+			        background-color:$self->{bgColour}'$extras";
 			        
 		}
 		# container div
@@ -193,7 +196,8 @@ our $VERSION = "0.002";
 	  return (($self->{x}==$element->{x}) and
 	         ($self->{y}==$element->{y}) and
 	         ($self->{width}==$element->{width}) and
-	         ($self->{height}==$element->{height}))?1:0;
+	         ($self->{height}==$element->{height}) and 
+	         ($self->{text}==$element->{text}))?1:0;
 	}
 	
 	sub clone{
@@ -201,7 +205,6 @@ our $VERSION = "0.002";
 	   return new CloudElement($self);
 	}
 		
-
 package Cloud;
 
     sub new{
@@ -231,7 +234,7 @@ package Cloud;
 	   my $overlaps=[];
 	   my $test=(ref $elementIndex eq "CloudElement")?$elementIndex:$self->{elements}->[$elementIndex];
 	   foreach my $ch(0..$#{$self->{elements}}){
-		  next if (($ch==$elementIndex)||((ref $elementIndex eq "CloudElement") && $elementIndex->match($self->{elements}->[$ch])));
+		  # next if (($ch==$elementIndex)||((ref $elementIndex eq "CloudElement") && $elementIndex->match($self->{elements}->[$ch])));
 		  my $ol=$test->proximity($self->{elements}->[$ch]);
 		  if (!%$ol){
 			 push @$overlaps, $ch;
@@ -259,8 +262,8 @@ package Cloud;
 
    sub div{
 	   my $self=shift;
-	   my $div="\n<div width='". $self->{size}->[0].
-	   	"px' height='".   $self->{size}->[1]."px' style='position:relative'>\n";
+	   my $div="\n<div style='border:solid 1px;position:relative;\n".
+	   	"        width:$self->{size}->[0]px; height='$self->{size}->[1]px;'>\n";
 	   $div.=$_->div() foreach (@{$self->{elements}});	
 	   $div.="\n\n</div>";
 	   return $div;
@@ -365,7 +368,33 @@ package Cloud;
 		   $count++;
 		   last if ($count>20);
 	   }
+	   return ($count>20)?undef:$element; 
+   }
+   
+   sub placeArchimedian{
+	   my ($self,$element,$theta,$alpha)=@_;
+	   $theta//=rand()*6.29;
+	   $alpha//=$element->{height}*(0.8+rand()*0.2);
+	   my $count=0;
+	   while ($self->checkOverlap($element)){
+		   $element->{x}=$self->{size}->[0]/2+$alpha*$theta*cos($theta);
+		   $element->{y}=$self->{size}->[1]/2+$alpha*$theta*sin($theta);;
+		   $theta+=.2;
+		   $count++;
+		   last if ($count>100);
+	   }
+	   # print "$theta $alpha $count\n";
 	   return ($count>20)?undef:$element;
+   }
+   
+   sub compactAdd{
+	    my ($self,$element)=@_;
+	    $self->placeAtCenter($element);
+	    if (@{$self->{elements}}>0){
+			$self->placeArchimedian($element);
+			$self->moveTowards($element,$self->center());
+		}
+	    $self->addElement( $element);	
 	   
    }
 
