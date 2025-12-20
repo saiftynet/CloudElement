@@ -1,0 +1,8 @@
+CHANGES
+
+Version 0.001
+Initial commit to github
+
+Version 0.003
+Add multiple placement methods
+Fix Element creation with hashref as parameter
